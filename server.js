@@ -41,6 +41,13 @@ app.get('/app', (req, res)=>{
     }
 })
 
+// CONTROLLERS
+const userController = require('./controllers/users.js')
+app.use('/users', userController);
+
+const sessionsController = require('./controllers/sessions.js');
+app.use('/sessions', sessionsController);
+
 //___________________
 //Listener
 //___________________
