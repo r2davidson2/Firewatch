@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/r2davidson2/Firewatch/issues"
   },
-  "homepage": "https://github.com/r2davidson2/Firewatch#readme"
+  "homepage": "https://github.com/r2davidson2/Firewatch#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
