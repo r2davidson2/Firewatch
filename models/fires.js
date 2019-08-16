@@ -3,6 +3,8 @@ const fireSchema = mongoose.Schema({
     fireName: String,
     fireBeginDate: String,
     fireEndDate: String,
+    lat: Number,
+    long: Number,
     comments: String
 })
 
