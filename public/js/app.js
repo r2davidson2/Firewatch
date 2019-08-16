@@ -52,4 +52,19 @@ app.controller('AuthController', ['$http', function($http) {
          }
       )
    }
+
+   this.logout = function() {
+      $http({
+         method: 'DELETE',
+         url: '/sessions'
+      }).then(
+         function(response) {
+            console.log(response);
+            controller.loggedInUsername = null;
+         }, function(error) {
+            console.log(error);
+         }
+      )
+   };
+
 }]);
