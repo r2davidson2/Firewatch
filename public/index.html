@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" ng-app="fires">
    <head>
       <meta charset="utf-8">
       <title></title>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js" charset="utf-8"></script>
       <script src="/js/app.js" charset="utf-8"></script>
       <link rel="stylesheet" href="css/skeleton.css">
    </head>
-   <body>
+   <body ng-controller="AuthController as auth">
       <div class="">
          <header>
-            <div class="create-account">
+            <div class="create-account" ng-if="!auth.loggedInUsername">
                <form  ng-submit="auth.createUser()">
                   <input   type="text" ng-model="auth.createUsername"
                            placeholder="Username">
-                  <input   type="text" ng-madel="auth.createPassword"
+                  <input   type="password" ng-model="auth.createPassword"
                            placeholder="Password">
                   <input type="submit" value="Create Account">
                </form>
@@ -22,7 +23,7 @@
                <form ng-submit="auth.logIn()">
                   <input   type="text" ng-model="auth.username"
                            placeholder="Username">
-                  <input   type="text" ng-model="auth.password"
+                  <input   type="password" ng-model="auth.password"
                            placeholder="Password">
                   <input type="submit" value="Login">
                </form>

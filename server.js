@@ -28,6 +28,11 @@ db.on('disconnected', () => console.log('mongo disconnected'));
 
 app.use(express.json());
 app.use(express.static('public'));
+app.use(session({
+   secret: process.env.SECRET,
+   resave: false,
+   saveUninitialized: false
+}));
 
 // AUTH ROUTE
 app.get('/app', (req, res)=>{
