@@ -1,12 +1,13 @@
 const mongoose = require('mongoose')
 const fireSchema = mongoose.Schema({
     fireName: String,
-    fireBeginDate: String,
-    fireEndDate: String,
+    image: String,
+    fireBeginDate: Date,
+    fireEndDate: Date,
     lat: Number,
     long: Number,
     comments: String
-})
+}, {timestamp: true})
 
 const Fire = mongoose.model('Fire', fireSchema)
 

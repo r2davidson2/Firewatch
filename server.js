@@ -53,6 +53,9 @@ app.use('/users', userController);
 const sessionsController = require('./controllers/sessions.js');
 app.use('/sessions', sessionsController);
 
+const firesController = require('./controllers/fires.js');
+app.use('/fires', firesController);
+
 //___________________
 //Listener
 //___________________

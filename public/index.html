@@ -8,7 +8,7 @@
       <link rel="stylesheet" href="css/skeleton.css">
    </head>
    <body ng-controller="AuthController as auth">
-      <div class="">
+      <div ng-controller="FiresController as ctrl">
          <header>
             <div class="create-account" ng-if="!auth.loggedInUsername">
                <form  ng-submit="auth.createUser()">
@@ -35,7 +35,54 @@
             </div>
          </header>
          <main>
-            <h1>Hello World</h1>
+            <h1>Fire Log</h1>
+            <div class="add-fire">
+               <form class="" ng-submit="ctrl.addFire()">
+                  <input   type="text" ng-model="ctrl.fireName" placeholder="Name">
+                  <input   type="text" ng-model="ctrl.image" placeholder="Image"/>
+                  <input   type="text" ng-model="ctrl.fireBeginDate"
+                           placeholder="Start Date">
+                  <input   type="text" ng-model="ctrl.fireEndDate"
+                           placeholder="End Date">
+                  <input   type="text" ng-model="ctrl.lat" placeholder="Latitude">
+                  <input   type="text" ng-model="ctrl.long"
+                           placeholder="Longitude">
+                  <textarea   name="name" ng-model="ctrl.comments"
+                              placeholder="Notes"></textarea>
+                  <input type="submit" value="Add Fire Log">
+               </form>
+            </div>
+            <div class="fire-logs">
+               <div class="fire-log" ng-repeat="fire in ctrl.fires">
+                  <h3>{{ fire.fireName }}</h3>
+                  <button type="button" ng-click="ctrl.deleteFire(fire)">
+                     Delete
+                  </button>
+                  <button  type="button"
+                           ng-if="$index !== fire.indexOfFire"
+                           ng-click="fire.indexOfFire = $index"
+                           >editFire
+                  </button>
+                  <form ng-if="$index === fire.indexOfFire"
+                        ng-submit="ctrl.editFire(fire)">
+                     <input   type="text" ng-model="ctrl.updatedFireName"
+                              ng-value="fire.fireName">
+                     <input   type="text" ng-model="ctrl.updatedImage"
+                              ng-value="fire.image"/>
+                     <input   type="text" ng-model="ctrl.updatedFireBeginDate"
+                              ng-value="fire.fireBeginDate">
+                     <input   type="text" ng-model="ctrl.updatedFireEndDate"
+                              ng-value="fire.fireEndDate">
+                     <input   type="text" ng-model="ctrl.updatedLat"
+                              ng-value="fire.lat">
+                     <input   type="text" ng-model="ctrl.updatedLong"
+                              ng-value="fire.long">
+                     <textarea   name="name" ng-model="ctrl.updatedComments"
+                                 value="fire.comments"></textarea>
+                     <input type="submit" value="Update Fire Log">
+                  </form>
+               </div>
+            </div>
          </main>
          <footer>
 

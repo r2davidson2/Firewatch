@@ -38,7 +38,8 @@ app.controller('AuthController', ['$http', function($http) {
             console.log(error);
          }
       )
-   }
+   };
+
    this.goApp = function() {
       $http({
          method: 'GET',
@@ -66,5 +67,92 @@ app.controller('AuthController', ['$http', function($http) {
          }
       )
    };
+
+}]);
+
+app.controller('FiresController', ['$http', function($http) {
+   this.fires = [];
+   this.indexOfFire = null;
+
+   this.test = 5;
+
+   this.showFires = function() {
+      $http({
+         method: 'GET',
+         url: '/fires'
+      }).then(
+         (response) => {
+            this.fires = response.data;
+            console.log(this.fires);
+         }
+      )
+   };
+
+   this.addFire = function() {
+      $http({
+         method: 'POST',
+         url: '/fires',
+         data: {
+            fireName: this.fireName,
+            image: this.image,
+            fireBeginDate: this.fireBeginDate,
+            fireEndDate: this.fireEndDate,
+            lat: this.lat,
+            long: this.long,
+            comments: this.comments
+         }
+      }).then(
+         (response) => {
+            this.fires.unshift(response.data);
+            this.resetForm();
+         }
+      )
+   }
+
+   this.editFire = function(fire) {
+      $http({
+         method: 'PUT',
+         url: '/fires/' + fire._id,
+         data: {
+            fireName: this.updatedFireName,
+            image: this.updatedImage,
+            fireBeginDate: this.updatedFireBeginDate,
+            fireEndDate: this.updatedFireEndDate,
+            lat: this.updatedLat,
+            long: this.updatedLong,
+            comments: this.updatedComments
+         }
+      }).then(
+         (response) => {
+            this.showFires();
+            this.indexOfFire = null
+         }
+      )
+   };
+
+   this.deleteFire = function(fire) {
+      console.log('clicked');
+      $http({
+         method: 'DELETE',
+         url: '/fires/' + fire._id
+      }).then(
+         (response) => {
+            this.showFires();
+         }
+      )
+   };
+
+   this.resetForm = function() {
+      this.fireName = '';
+      this.image = '';
+      this.fireBeginDate = '';
+      this.fireEndDate = '';
+      this.lat = '';
+      this.long = '';
+      this.comments = '';
+   };
+
+   this.showFires();
+
 
 }]);
