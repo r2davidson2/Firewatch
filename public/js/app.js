@@ -131,7 +131,6 @@ app.controller('FiresController', ['$http', function($http) {
    };
 
    this.deleteFire = function(fire) {
-      console.log('clicked');
       $http({
          method: 'DELETE',
          url: '/fires/' + fire._id
@@ -139,7 +138,7 @@ app.controller('FiresController', ['$http', function($http) {
          (response) => {
             this.showFires();
          }
-      )
+      )   
    };
 
    this.resetForm = function() {
@@ -150,6 +149,10 @@ app.controller('FiresController', ['$http', function($http) {
       this.lat = '';
       this.long = '';
       this.comments = '';
+   };
+
+   this.cancelUpdate = function() {
+      this.indexOfFire = null;
    };
 
    this.showFires();
