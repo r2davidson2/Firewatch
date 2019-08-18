@@ -100,7 +100,7 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
        url: "/config"
      }).then ((response) => {
        this.key = response.data;
-       this.url = `https://www.google.com/maps/embed/v1/place?q=${lat}%2C${long}&key=AIzaSyB3OQWFPCdhHa0k315zOyhGW9270tjCuWc`
+       this.url = `https://www.google.com/maps/embed/v1/place?q=${lat}%2C${long}&key=KEY`
        this.src = this.url+this.key
        return this.url;
      });
