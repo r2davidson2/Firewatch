@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 const fireSchema = mongoose.Schema({
     fireName: String,
     image: String,
-    fireBeginDate: Date,
-    fireEndDate: Date,
-    lat: Number,
-    long: Number,
+    fireBeginDate: String,
+    fireEndDate: String,
+    lat: String,
+    long: String,
     comments: String
 }, {timestamp: true})
 
