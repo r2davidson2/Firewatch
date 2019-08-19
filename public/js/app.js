@@ -75,6 +75,8 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
   $scope.trustAsUrl = (url) => {
     return $sce.trustAsResourceUrl(url)
   }
+
+   this.key;
    this.fires = [];
    this.mapUrl = "";
    this.indexOfFire = null;
@@ -94,15 +96,13 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
       )
    };
 
-   this.getKey = (lat, long) => {
+   $scope.getKey = () => {
      $http({
        method: "GET",
        url: "/config"
      }).then ((response) => {
-       this.key = response.data;
-       this.url = `https://www.google.com/maps/embed/v1/place?q=${lat}%2C${long}&key=KEY`
-       this.src = this.url+this.key
-       return this.url;
+       $scope.key = response.data;
+       return this.key
      });
    };
 
@@ -123,7 +123,7 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
       }).then(
          (response) => {
             this.latitude = response.data.lat;
-            this.longitude= response.data.long;
+            this.longitude= response.data.lonsg;
             console.log(response.data.lat, response.data.long);
             $scope.getUrl(this.latitude, this.longitude),
             // console.log(this.url);
@@ -135,7 +135,7 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
 
    $scope.getUrl = function (lat,long) {
         console.log('from getUrl', lat, long);
-        const embedUrl ="https://www.google.com/maps/embed/v1/place?q="+lat+"%2C"+long+"&key="+KEY+"tjCuWc";
+        const embedUrl ="https://www.google.com/maps/embed/v1/place?q="+lat+"%2C"+long+"&key="+$scope.key+"&zoom=6";
         return $sce.trustAsResourceUrl(embedUrl);
 
   };
@@ -184,7 +184,11 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
       this.comments = '';
    };
 
+   $scope.getKey()
    this.showFires();
+
+
+
 
 
 }]);
