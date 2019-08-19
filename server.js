@@ -7,6 +7,8 @@ const session = require('express-session');
 require('dotenv').config();
 const app = express ();
 const db = mongoose.connection;
+const key = process.env.GOOGLE_DEV_KEY
+
 
 // PORT
 const PORT = process.env.PORT || 3000;
@@ -28,6 +30,18 @@ db.on('disconnected', () => console.log('mongo disconnected'));
 
 app.use(express.json());
 app.use(express.static('public'));
+app.use(session({
+   secret: process.env.SECRET,
+   resave: false,
+   saveUninitialized: false
+}));
+
+
+
+//ENV 
+app.get("/config", (req, res) => {
+  res.json(key);
+})
 
 // AUTH ROUTE
 app.get('/app', (req, res)=>{
@@ -41,12 +55,17 @@ app.get('/app', (req, res)=>{
     }
 })
 
+
+
 // CONTROLLERS
 const userController = require('./controllers/users.js')
 app.use('/users', userController);
 
 const sessionsController = require('./controllers/sessions.js');
 app.use('/sessions', sessionsController);
+
+const firesController = require('./controllers/fires.js');
+app.use('/fires', firesController);
 
 //___________________
 //Listener
