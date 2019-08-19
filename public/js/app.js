@@ -123,7 +123,7 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
       }).then(
          (response) => {
             this.latitude = response.data.lat;
-            this.longitude= response.data.lonsg;
+            this.longitude= response.data.long;
             console.log(response.data.lat, response.data.long);
             $scope.getUrl(this.latitude, this.longitude),
             // console.log(this.url);
