@@ -13,6 +13,9 @@ app.controller('AuthController', ['$http', function($http) {
          }
       }).then(function(response) {
          console.log(response);
+         if (response.status === 200) {
+            alert('User already exists!');
+         }
          controller.createUsername = null;
          controller.createPassword = null;
       }, function(error) {
@@ -31,11 +34,15 @@ app.controller('AuthController', ['$http', function($http) {
       }).then(
          function(response) {
             console.log(response);
+
             controller.username = null;
             controller.password = null;
             controller.goApp();
          }, function(error) {
             console.log(error);
+            if (error.status === 401) {
+               alert('Username or password is incorrect.')
+            }
          }
       )
    };
@@ -170,7 +177,7 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
          (response) => {
             this.showFires();
          }
-      )   
+      )
    };
 
    this.resetForm = function() {
@@ -182,14 +189,14 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
       this.long = '';
       this.comments = '';
    };
-  
+
   this.cancelUpdate = function() {
       this.indexOfFire = null;
    };
 
    $scope.getKey()
 
- 
+
    this.showFires();
 
 
