@@ -163,7 +163,6 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
    };
 
    this.deleteFire = function(fire) {
-      console.log('clicked');
       $http({
          method: 'DELETE',
          url: '/fires/' + fire._id
@@ -171,7 +170,7 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
          (response) => {
             this.showFires();
          }
-      )
+      )   
    };
 
    this.resetForm = function() {
@@ -183,8 +182,14 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
       this.long = '';
       this.comments = '';
    };
+  
+  this.cancelUpdate = function() {
+      this.indexOfFire = null;
+   };
 
    $scope.getKey()
+
+ 
    this.showFires();
 
 
