@@ -1,4 +1,4 @@
-const app = angular.module('fires', []);
+const app = angular.module('MyApp', []);
 
 app.controller('AuthController', ['$http', function($http) {
    const controller = this;
@@ -69,12 +69,20 @@ app.controller('AuthController', ['$http', function($http) {
    };
 
 }]);
+//USER FORM SUBMISSION
+app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $scope, $sce) {
 
-app.controller('FiresController', ['$http', function($http) {
+  $scope.trustAsUrl = (url) => {
+    return $sce.trustAsResourceUrl(url)
+  }
+
+   this.key;
    this.fires = [];
+   this.mapUrl = "";
    this.indexOfFire = null;
 
    this.test = 5;
+
 
    this.showFires = function() {
       $http({
@@ -88,26 +96,50 @@ app.controller('FiresController', ['$http', function($http) {
       )
    };
 
+   $scope.getKey = () => {
+     $http({
+       method: "GET",
+       url: "/config"
+     }).then ((response) => {
+       $scope.key = response.data;
+       return this.key
+     });
+   };
+
+
    this.addFire = function() {
       $http({
          method: 'POST',
          url: '/fires',
          data: {
-            fireName: this.fireName,
-            image: this.image,
-            fireBeginDate: this.fireBeginDate,
-            fireEndDate: this.fireEndDate,
-            lat: this.lat,
-            long: this.long,
-            comments: this.comments
+           fireName: this.fireName,
+           image: this.image,
+           fireBeginDate: this.fireBeginDate,
+           fireEndDate: this.fireEndDate,
+           lat: this.lat,
+           long: this.long,
+           comments: this.comments
          }
       }).then(
          (response) => {
+            this.latitude = response.data.lat;
+            this.longitude= response.data.long;
+            console.log(response.data.lat, response.data.long);
+            $scope.getUrl(this.latitude, this.longitude),
+            // console.log(this.url);
             this.fires.unshift(response.data);
             this.resetForm();
          }
       )
    }
+
+   $scope.getUrl = function (lat,long) {
+        console.log('from getUrl', lat, long);
+        const embedUrl ="https://www.google.com/maps/embed/v1/place?q="+lat+"%2C"+long+"&key="+$scope.key+"&zoom=6";
+        return $sce.trustAsResourceUrl(embedUrl);
+
+  };
+
 
    this.editFire = function(fire) {
       $http({
@@ -150,12 +182,18 @@ app.controller('FiresController', ['$http', function($http) {
       this.long = '';
       this.comments = '';
    };
-
-   this.cancelUpdate = function() {
+  
+  this.cancelUpdate = function() {
       this.indexOfFire = null;
    };
 
+   $scope.getKey()
+
+ 
    this.showFires();
+
+
+
 
 
 }]);
