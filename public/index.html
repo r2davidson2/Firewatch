@@ -46,7 +46,7 @@
           </div>
             <!-- INPUT FIELD/CREATE POST -->
             <div class="add-fire" ng-if="auth.loggedInUsername">
-               <form class="" ng-submit="ctrl.addFire()">
+               <form ng-submit="ctrl.addFire()">
                   <input   type="text" ng-model="ctrl.fireName" placeholder="Name">
                   <input   type="text" ng-model="ctrl.image" placeholder="Image"/>
                   <input   type="text" ng-model="ctrl.fireBeginDate"
@@ -66,67 +66,69 @@
 				<input   type="text" ng-model="searchbox" placeholder="SEARCH"
                      id="searchbox"/>
             <div class="fire-logs">
-               <div  class="fire-log"
-                     ng-repeat="fire in ctrl.fires
-                     | orderBy: '-_id'
-                     |filter: searchbox">
-                  <a ng-click="ctrl.toggleShowModal(fire)"><h3>{{ fire.fireName }}</h3></a>
 
-                  <div class="modal"
-                       ng-class="(fire.showModal) ? 'show-modal' : 'hide-modal' ">
-                     <div class="modal-box">
-                        <div class="modal-main">
-                           <img src="{{fire.image}}">
-                           <p>{{fire.comments}}</p>
+                  <div class="fire-log"
+                        ng-repeat="fire in ctrl.fires
+                        | orderBy: '-_id'
+                        |filter: searchbox">
+                     <a ng-click="ctrl.toggleShowModal(fire)"><h3>{{ fire.fireName }}</h3></a>
+
+                     <div class="modal"
+                          ng-class="(fire.showModal) ? 'show-modal' : 'hide-modal' ">
+                        <div class="modal-box">
+                           <div class="modal-main">
+                              <img src="{{fire.image}}">
+                              <p>{{fire.comments}}</p>
+                           </div>
+                           <div class="modal-footer">
+                              <i class="far fa-window-close"
+                                 ng-click="ctrl.toggleShowModal(fire)"></i>
+                           </div>
                         </div>
-                        <div class="modal-footer">
-                           <i class="far fa-window-close"
-                              ng-click="ctrl.toggleShowModal(fire)"></i>
+                     </div>
+                     <iframe  src="{{getUrl(fire.lat, fire.long)}}"
+                              width="300" height="250" frameborder="0" style="border:0"
+                              allowfullscreen>
+                     </iframe>
+                     <img src="{{fire.image}}">
+                     <!-- EDIT/DELETE BUTTONS -->
+                     <div  class="buttons"
+                           ng-if="auth.loggedInUsername === fire.createdBy">
+                        <button type="button" ng-click="ctrl.deleteFire(fire)">
+                           Delete
+                        </button>
+                        <button  type="button"
+                                 ng-if="$index !== fire.indexOfFire"
+                                 ng-click="fire.indexOfFire = $index"
+                                 >Edit Log
+                        </button>
+                        <!-- EDIT FIELD/EDIT FORM -->
+                        <div class="edit-form">
+                           <form ng-if="$index === fire.indexOfFire"
+                                 ng-submit="ctrl.editFire(fire)">
+                              <input   type="text" ng-model="ctrl.updatedFireName"
+                                       ng-value="fire.fireName">
+                              <input   type="text" ng-model="ctrl.updatedImage"
+                                       ng-value="fire.image"/>
+                              <input   type="text"
+                                       ng-model="ctrl.updatedFireBeginDate"
+                                       ng-value="fire.fireBeginDate">
+                              <input   type="text" ng-model="ctrl.updatedFireEndDate"
+                                       ng-value="fire.fireEndDate">
+                              <input   type="text" ng-model="ctrl.updatedLat"
+                                       ng-value="fire.lat">
+                              <input   type="text" ng-model="ctrl.updatedLong"
+                                       ng-value="fire.long"><br>
+                              <input   type="text" ng-model="ctrl.updatedComments"
+                                       class="textarea"
+                                       ng-value="fire.comments"><br>
+                              <input type="submit" value="Update Fire Log">
+                              <button ng-click="ctrl.cancelUpdate()">Cancel</button>
+                           </form>
                         </div>
                      </div>
                   </div>
-                  <iframe  src="{{getUrl(fire.lat, fire.long)}}"
-                           width="300" height="250" frameborder="0" style="border:0"
-                           allowfullscreen>
-                  </iframe>
-                  <img src="{{fire.image}}">
-                  <!-- EDIT/DELETE BUTTONS -->
-                  <div  class=""
-                        ng-if="auth.loggedInUsername === fire.createdBy">
-                     <button type="button" ng-click="ctrl.deleteFire(fire)">
-                        Delete
-                     </button>
-                     <button  type="button"
-                              ng-if="$index !== fire.indexOfFire"
-                              ng-click="fire.indexOfFire = $index"
-                              >Edit Log
-                     </button>
-                     <!-- EDIT FIELD/EDIT FORM -->
-                     <div class="edit-form">
-                        <form ng-if="$index === fire.indexOfFire"
-                              ng-submit="ctrl.editFire(fire)">
-                           <input   type="text" ng-model="ctrl.updatedFireName"
-                                    ng-value="fire.fireName">
-                           <input   type="text" ng-model="ctrl.updatedImage"
-                                    ng-value="fire.image"/>
-                           <input   type="text"
-                                    ng-model="ctrl.updatedFireBeginDate"
-                                    ng-value="fire.fireBeginDate">
-                           <input   type="text" ng-model="ctrl.updatedFireEndDate"
-                                    ng-value="fire.fireEndDate">
-                           <input   type="text" ng-model="ctrl.updatedLat"
-                                    ng-value="fire.lat">
-                           <input   type="text" ng-model="ctrl.updatedLong"
-                                    ng-value="fire.long"><br>
-                           <input   type="text" ng-model="ctrl.updatedComments"
-                                    class="textarea"
-                                    ng-value="fire.comments"><br>
-                           <input type="submit" value="Update Fire Log">
-                           <button ng-click="ctrl.cancelUpdate()">Cancel</button>
-                        </form>
-                     </div>
-                  </div>
-               </div>
+
             </div>
          </main>
          <footer>
