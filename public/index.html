@@ -55,12 +55,15 @@
                   <input   type="text" ng-model="ctrl.long"
                            placeholder="Longitude"><br>
                   <input   type="text" ng-model="ctrl.comments"
-                           placeholder="Notes"><br>
+                           placeholder="Notes" class="textarea"><br>
                   <input type="submit" value="Add Fire Log">
                </form>
             </div>
+
+				<input   type="text" ng-model="searchbox" placeholder="SEARCH"
+                     id="searchbox"/>
             <div class="fire-logs">
-               <div class="fire-log" ng-repeat="fire in ctrl.fires">
+               <div class="fire-log" ng-repeat="fire in ctrl.fires | orderBy: '-_id' |filter: searchbox">
                   <h3>{{ fire.fireName }}</h3>
                   <p>{{fire.comments}}</p>
                   <iframe  src="{{getUrl(fire.lat, fire.long)}}"
@@ -95,12 +98,13 @@
                            <input   type="text" ng-model="ctrl.updatedLong"
                                     ng-value="fire.long"><br>
                            <input   type="text" ng-model="ctrl.updatedComments"
-                                    class="textarea" value="fire.comments"><br>
+                                    class="textarea"
+                                    ng-value="fire.comments"><br>
                            <input type="submit" value="Update Fire Log">
                            <button ng-click="ctrl.cancelUpdate()">Cancel</button>
                         </form>
                      </div>
-                  </div>                  
+                  </div>
                </div>
             </div>
          </main>
