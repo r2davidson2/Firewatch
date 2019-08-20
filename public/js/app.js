@@ -1,6 +1,6 @@
 const app = angular.module('MyApp', []);
 
-app.controller('AuthController', ['$http', function($http, $scope) {
+app.controller('AuthController', ['$http', '$scope', function($http, $scope) {
    const controller = this;
 
    this.createUser = function(){
@@ -53,6 +53,8 @@ app.controller('AuthController', ['$http', function($http, $scope) {
       }).then(
          function(response) {
             controller.loggedInUsername = response.data.username;
+            $scope.loggedInUsername = response.data.username;
+            console.log($scope.loggedInUsername);
             console.log(controller.loggedInUsername);
          }, function(error) {
             console.log(error);
@@ -68,6 +70,7 @@ app.controller('AuthController', ['$http', function($http, $scope) {
          function(response) {
             console.log(response);
             controller.loggedInUsername = null;
+            $scope.loggedInUsername = null;
          }, function(error) {
             console.log(error);
          }
@@ -87,8 +90,7 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
    this.fires = [];
    this.mapUrl = "";
    this.indexOfFire = null;
-
-   this.test = 5;
+   $scope.loggedInUsername;
 
    this.showFires = function() {
       $http({
@@ -123,7 +125,8 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
            fireEndDate: this.fireEndDate,
            lat: this.lat,
            long: this.long,
-           comments: this.comments
+           comments: this.comments,
+           createdBy: $scope.loggedInUsername
          }
       }).then(
          (response) => {

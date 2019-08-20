@@ -42,7 +42,7 @@
          </header>
          <main>
            <div ng-if="auth.loggedInUsername">
-             <h1>{{auth.loggedInUsername}}'s Fire Log</h1> 
+             <h1>{{auth.loggedInUsername}}'s Fire Log</h1>
           </div>
             <!-- INPUT FIELD/CREATE POST -->
             <div class="add-fire" ng-if="auth.loggedInUsername">
@@ -90,7 +90,9 @@
                            allowfullscreen>
                   </iframe>
                   <img src="{{fire.image}}">
-                  <div class="" ng-if="auth.loggedInUsername">
+                  // EDIT/DELETE BUTTONS
+                  <div  class=""
+                        ng-if="auth.loggedInUsername === fire.createdBy">
                      <button type="button" ng-click="ctrl.deleteFire(fire)">
                         Delete
                      </button>

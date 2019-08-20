@@ -10,7 +10,8 @@ const fireSchema = mongoose.Schema({
    showModal: {
          type: Boolean,
          default: false
-      }
+      },
+   createdBy: String
 }, {timestamp: true})
 
 const Fire = mongoose.model('Fire', fireSchema)
