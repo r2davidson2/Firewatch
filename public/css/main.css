@@ -23,7 +23,7 @@ body {
   font-size: 50px;
 }
 
- iframe {
+iframe {
     width: 90%;
   /* height: 350px; */
 }
@@ -45,7 +45,6 @@ input[type="submit"] {
    background: #bbb6b6;
    -webkit-appearance: none;
 }
-
 .textarea {
    width: 90%;
    height: 200px;
@@ -78,4 +77,55 @@ img {
    width: 90%;
    /* height: 200px; */
    overflow: hidden;
+}
+a {
+   color: #bbb6b6;
+}
+a:hover {
+   /* color: #EA6423; */
+   color: #CE480B;
+   color: #FC7A2B;
+}
+.show-modal {
+   display: block;
+   position: fixed;
+   top: 0;
+   left: 0;
+   z-index: 1;
+   background-color: rgba(0,0,0,0.75);
+   width: 100%;
+   height: 100%;
+   overflow: auto;
+}
+.hide-modal {
+   display: none;
+   position: fixed;
+   z-index: 1;
+}
+.modal {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   /* background-image: url('https://tribktla.files.wordpress.com/2018/08/gettyimages-1009513954.jpg?quality=85&strip=all&strip=all'); */
+   /* background-image: url('https://images.pexels.com/photos/1367192/pexels-photo-1367192.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260'); */
+   background-size: cover;
+   background-position: cover;
+}
+.modal-box {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   background: #101018;
+   width: 75%;
+   /* height: 75%; */
+   padding-top: 40px;
+}
+.modal-main {
+
+}
+.modal-footer {
+   /* position: fixed; */
+   /* bottom: 0; */
+   /* text-align: right; */
 }

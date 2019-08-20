@@ -1,6 +1,6 @@
 const app = angular.module('MyApp', []);
 
-app.controller('AuthController', ['$http', function($http) {
+app.controller('AuthController', ['$http', function($http, $scope) {
    const controller = this;
 
    this.createUser = function(){
@@ -12,7 +12,7 @@ app.controller('AuthController', ['$http', function($http) {
             password: this.createPassword
          }
       }).then(function(response) {
-         console.log(response);
+         // console.log(response);
          if (response.status === 200) {
             alert('User already exists!');
          }
@@ -33,8 +33,7 @@ app.controller('AuthController', ['$http', function($http) {
          }
       }).then(
          function(response) {
-            console.log(response);
-
+            // console.log(response);
             controller.username = null;
             controller.password = null;
             controller.goApp();
@@ -83,13 +82,13 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
     return $sce.trustAsResourceUrl(url)
   }
 
+
    this.key;
    this.fires = [];
    this.mapUrl = "";
    this.indexOfFire = null;
 
    this.test = 5;
-
 
    this.showFires = function() {
       $http({
@@ -112,7 +111,6 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
        return this.key
      });
    };
-
 
    this.addFire = function() {
       $http({
@@ -141,12 +139,11 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
    }
 
    $scope.getUrl = function (lat,long) {
-        console.log('from getUrl', lat, long);
+        // console.log('from getUrl', lat, long);
         const embedUrl ="https://www.google.com/maps/embed/v1/place?q="+lat+"%2C"+long+"&key="+$scope.key+"&zoom=6";
         return $sce.trustAsResourceUrl(embedUrl);
 
   };
-
 
    this.editFire = function(fire) {
       $http({
@@ -190,13 +187,25 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
       this.comments = '';
    };
 
-  this.cancelUpdate = function() {
+   this.cancelUpdate = function() {
       this.indexOfFire = null;
    };
 
+   this.toggleShowModal = function(fire) {
+      console.log('clicked');
+      fire.showModal = !fire.showModal;
+      $http({
+         method: 'PUT',
+         url: '/fires/' + fire._id,
+         data: { showModal: fire.showModal}
+      }).then(response => {
+         console.log(response.data);
+      }, error => {
+         console.log(error);
+      })
+   };
+
    $scope.getKey()
-
-
    this.showFires();
 
 
