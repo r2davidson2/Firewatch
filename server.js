@@ -38,7 +38,7 @@ app.use(session({
 
 
 
-//ENV 
+//ENV
 app.get("/config", (req, res) => {
   res.json(key);
 })
@@ -46,6 +46,7 @@ app.get("/config", (req, res) => {
 // AUTH ROUTE
 app.get('/app', (req, res)=>{
     if(req.session.currentUser){
+      console.log(req.session.currentUser);
         res.json(req.session.currentUser)
     } else {
         res.status(401).json({
