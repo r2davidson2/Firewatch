@@ -41,7 +41,7 @@
             </div>
          </header>
          <main>
-            <h1>Fire Log</h1>
+            <h1>{{auth.loggedInUsername}}'s Fire Log</h1>
             <!-- INPUT FIELD/CREATE POST -->
             <div class="add-fire" ng-if="auth.loggedInUsername">
                <form class="" ng-submit="ctrl.addFire()">
