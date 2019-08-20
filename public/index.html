@@ -70,8 +70,12 @@
                      ng-repeat="fire in ctrl.fires
                      | orderBy: '-_id'
                      |filter: searchbox">
-                  <a ng-click="ctrl.toggleShowModal(fire)"><h3>{{ fire.fireName }}</h3></a>
+                <div class="container">
 
+
+                  <div class="fire-name">
+                    <a ng-click="ctrl.toggleShowModal(fire)"><h3>{{ fire.fireName }}</h3></a>
+                  </div>
                   <div class="modal"
                        ng-class="(fire.showModal) ? 'show-modal' : 'hide-modal' ">
                      <div class="modal-box">
@@ -85,22 +89,29 @@
                         </div>
                      </div>
                   </div>
-                  <iframe  src="{{getUrl(fire.lat, fire.long)}}"
+                  <div class="fire-image">
+
+                    <iframe  src="{{getUrl(fire.lat, fire.long)}}"
                            width="300" height="250" frameborder="0" style="border:0"
                            allowfullscreen>
-                  </iframe>
-                  <img src="{{fire.image}}">
+                    </iframe>
+                    <img src="{{fire.image}}">
+                  </div>
                   <!-- EDIT/DELETE BUTTONS -->
-                  <div  class=""
+
+
+
+                    <div  class="buttons"
                         ng-if="auth.loggedInUsername === fire.createdBy">
-                     <button type="button" ng-click="ctrl.deleteFire(fire)">
+                        <button type="button" ng-click="ctrl.deleteFire(fire)">
                         Delete
-                     </button>
-                     <button  type="button"
+                      </button>
+                      <button  type="button"
                               ng-if="$index !== fire.indexOfFire"
                               ng-click="fire.indexOfFire = $index"
                               >Edit Log
-                     </button>
+                      </button>
+
                      <!-- EDIT FIELD/EDIT FORM -->
                      <div class="edit-form">
                         <form ng-if="$index === fire.indexOfFire"
@@ -126,6 +137,7 @@
                         </form>
                      </div>
                   </div>
+               </div>
                </div>
             </div>
          </main>
