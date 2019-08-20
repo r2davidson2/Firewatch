@@ -5,6 +5,7 @@
   <link href="https://fonts.googleapis.com/css?family=Lexend+Zetta&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/skeleton.css">
   <link rel="stylesheet" href="css/main.css">
+  <script src="https://kit.fontawesome.com/e753203c88.js"></script>
   <script src="js/app.js"></script>
   <meta charset="utf-8">
     <title>Fire Watch</title>
@@ -41,7 +42,7 @@
          </header>
          <main>
            <div ng-if="auth.loggedInUsername">
-             <h1>{{auth.loggedInUsername}}'s Fire Log</h1> 
+             <h1>{{auth.loggedInUsername}}'s Fire Log</h1>
           </div>
             <!-- INPUT FIELD/CREATE POST -->
             <div class="add-fire" ng-if="auth.loggedInUsername">
@@ -65,15 +66,33 @@
 				<input   type="text" ng-model="searchbox" placeholder="SEARCH"
                      id="searchbox"/>
             <div class="fire-logs">
-               <div class="fire-log" ng-repeat="fire in ctrl.fires | orderBy: '-_id' |filter: searchbox">
-                  <h3>{{ fire.fireName }}</h3>
-                  <p>{{fire.comments}}</p>
+               <div  class="fire-log"
+                     ng-repeat="fire in ctrl.fires
+                     | orderBy: '-_id'
+                     |filter: searchbox">
+                  <a ng-click="ctrl.toggleShowModal(fire)"><h3>{{ fire.fireName }}</h3></a>
+
+                  <div class="modal"
+                       ng-class="(fire.showModal) ? 'show-modal' : 'hide-modal' ">
+                     <div class="modal-box">
+                        <div class="modal-main">
+                           <img src="{{fire.image}}">
+                           <p>{{fire.comments}}</p>
+                        </div>
+                        <div class="modal-footer">
+                           <i class="far fa-window-close"
+                              ng-click="ctrl.toggleShowModal(fire)"></i>
+                        </div>
+                     </div>
+                  </div>
                   <iframe  src="{{getUrl(fire.lat, fire.long)}}"
                            width="300" height="250" frameborder="0" style="border:0"
                            allowfullscreen>
                   </iframe>
                   <img src="{{fire.image}}">
-                  <div class="" ng-if="auth.loggedInUsername">
+                  <!-- EDIT/DELETE BUTTONS -->
+                  <div  class=""
+                        ng-if="auth.loggedInUsername === fire.createdBy">
                      <button type="button" ng-click="ctrl.deleteFire(fire)">
                         Delete
                      </button>
