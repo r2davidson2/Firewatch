@@ -41,6 +41,8 @@ input[type="submit"] {
    background: #bbb6b6;
    -webkit-appearance: none;
 }
+
+
 .textarea {
    width: 90%;
    height: 200px;
@@ -51,32 +53,43 @@ input[type="submit"] {
 }
 h3 {
    text-transform: uppercase;
-   font-size: 3vw;
+   font-size: 2vw;
 }
+
 p {
    font-size: 1.5vw;
    margin: 0;
 }
+
 #searchbox {
    color: #FC7A2B;
 }
+
 #searchbox::-webkit-input-placeholder { /* Chrome/Opera/Safari */
  color: #FC7A2B;
 }
+
+
+.fire-name {
+  height: 95px;
+}
+
+.fire-image {
+  height: 465px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+
 .fire-logs {
    display: flex;
    justify-content: space-around;
    flex-wrap: wrap;
+
 }
 .fire-log {
-   /* display: grid;
-   grid-template-columns: 1fr,1fr,1fr;
-   grid-template-rows: 1fr, 1fr, 1fr; */
-   display: flex;
-   /* justify-content: center; */
-   align-items: center;
-   flex-direction: column;
-   margin: 0 auto 50px auto;
+   margin: 0 auto;
+   margin-bottom: 100px;
    width: 30%;
    overflow: hidden;
    /* height: 600px; */
@@ -84,11 +97,11 @@ p {
 .buttons {
    margin-top: 10px;
 }
+
 img {
-   width: 90%;
-   overflow: hidden;
-   margin-top: 10px;
+  width: 90%;
 }
+
 a {
    color: #bbb6b6;
 }
