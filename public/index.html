@@ -47,37 +47,36 @@
             <!-- INPUT FIELD/CREATE POST -->
             <div class="add-fire" ng-if="auth.loggedInUsername">
                <form ng-submit="ctrl.addFire()">
-                  <input   type="text" ng-model="ctrl.fireName" placeholder="Name">
-                  <input   type="text" ng-model="ctrl.image" placeholder="Image"/>
+                  <input   type="text" ng-model="ctrl.fireName" placeholder="Name" required>
+                  <input   type="text" ng-model="ctrl.image" placeholder="Image" required/>
                   <input   type="text" ng-model="ctrl.fireBeginDate"
-                           placeholder="Start Date">
+                           placeholder="Start Date" required>
                   <input   type="text" ng-model="ctrl.fireEndDate"
-                           placeholder="End Date">
+                           placeholder="End Date" required>
                   <input   type="text" ng-model="ctrl.lat"
-                           placeholder="Latitude">
+                           placeholder="Latitude" required>
                   <input   type="text" ng-model="ctrl.long"
-                           placeholder="Longitude"><br>
+                           placeholder="Longitude" required><br>
                   <input   type="text" ng-model="ctrl.comments"
                            placeholder="Notes" class="textarea"><br>
                   <input type="submit" value="Add Fire Log">
                </form>
             </div>
-
-				<input   type="text" ng-model="searchbox" placeholder="SEARCH"
+				<input   type="text" ng-model="searchbox.fireName" placeholder="SEARCH"
                      id="searchbox"/>
             <div class="fire-logs">
-
                   <div class="fire-log"
                         ng-repeat="fire in ctrl.fires
                         | orderBy: '-_id'
-                        |filter: searchbox">
-                     <a ng-click="ctrl.toggleShowModal(fire)"><h3>{{ fire.fireName }}</h3></a>
-
+                        |filter: searchbox : strict">
+                     <a ng-click="ctrl.toggleShowModal(fire)"><h3>
+                        {{ fire.fireName }}</h3></a>
                      <div class="modal"
                           ng-class="(fire.showModal) ? 'show-modal' : 'hide-modal' ">
                         <div class="modal-box">
                            <div class="modal-main">
                               <img src="{{fire.image}}">
+                              <p>{{fire.fireBeginDate}} - {{fire.fireEndDate}}</p>
                               <p>{{fire.comments}}</p>
                            </div>
                            <div class="modal-footer">
@@ -128,12 +127,8 @@
                         </div>
                      </div>
                   </div>
-
             </div>
          </main>
-         <footer>
-
-         </footer>
       </div>
    </body>
 </html>
