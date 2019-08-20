@@ -43,15 +43,25 @@ input[type="password"]:focus {
 }
 input[type="submit"] {
    background: #bbb6b6;
+   -webkit-appearance: none;
 }
 
 .textarea {
-   /* width: 90%;
-   height: 100px;
+   width: 90%;
+   height: 200px;
    margin: 0 auto;
    resize: none;
    margin-bottom: 10px;
-   border-radius: 5px; */
+   border-radius: 5px;
+}
+p {
+   margin: 0;
+}
+#searchbox {
+   color: orange;
+}
+#searchbox::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+ color: orange;
 }
 .fire-logs {
    display: flex;
