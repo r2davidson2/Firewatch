@@ -207,9 +207,4 @@ app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $s
 
    $scope.getKey()
    this.showFires();
-
-
-
-
-
 }]);
