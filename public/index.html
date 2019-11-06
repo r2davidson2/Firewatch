@@ -44,7 +44,9 @@
          <div ng-if="auth.loggedInUsername">
             <h1>{{auth.loggedInUsername}}'s Fire Log</h1>
          </div>
+         <!-- ======================= -->
          <!-- INPUT FIELD/CREATE POST -->
+         <!-- ======================= -->
          <div class="add-fire" ng-if="auth.loggedInUsername">
             <form ng-submit="ctrl.addFire()">
                <input   type="text" ng-model="ctrl.fireName" placeholder="Name" required>
@@ -62,39 +64,44 @@
                <input type="submit" value="Add Fire Log">
             </form>
          </div>
-         <input   type="text" ng-model="searchbox.fireName" placeholder="SEARCH"
+         <!-- <button ng-if="auth.loggedInUsername" ng-model="search.createdBy" >My Posts</button> -->
+         <input  type="text" ng-model="search.$" placeholder="SEARCH"
          id="searchbox"/>
          <div class="fire-logs">
             <div  class="fire-log"
-            ng-repeat="fire in ctrl.fires
-            | orderBy: '-_id'
-            |filter: searchbox">
-            <div class="container">
-               <div class="fire-name">
-                  <a ng-click="ctrl.toggleShowModal(fire)"><h3>{{ fire.fireName }}</h3></a>
-               </div>
-               <div class="modal"
-               ng-class="(fire.showModal) ? 'show-modal' : 'hide-modal' ">
-               <div class="modal-box">
-                  <div class="modal-main">
+                  ng-repeat="fire in ctrl.fires
+                  | orderBy: '-_id'
+                  | filter:search">
+               <div class="container">
+                  <div class="fire-name">
+                     <a ng-click="ctrl.toggleShowModal(fire)"><h3>
+                     {{ fire.fireName }}</h3>
+                     </a>
+                  </div>
+                  <div class="modal"
+                        ng-class="(fire.showModal) ? 'show-modal' : 'hide-modal' ">
+                     <div class="modal-box">
+                        <div class="modal-main">
+                           <img src="{{fire.image}}">
+                           <p>{{fire.fireBeginDate}} - {{fire.fireEndDate}}</p>
+                           <p>{{fire.comments}}</p>
+                        </div>
+                        <div class="modal-footer">
+                           <i class="far fa-window-close"
+                              ng-click="ctrl.toggleShowModal(fire)"></i>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="fire-image">
+                     <iframe  src="{{getUrl(fire.lat, fire.long)}}"
+                        width="300" height="250" frameborder="0" style="border:0"
+                        allowfullscreen>
+                     </iframe>
                      <img src="{{fire.image}}">
-                     <p>{{fire.fireBeginDate}} - {{fire.fireEndDate}}</p>
-                     <p>{{fire.comments}}</p>
                   </div>
-                  <div class="modal-footer">
-                     <i class="far fa-window-close"
-                     ng-click="ctrl.toggleShowModal(fire)"></i>
-                  </div>
-               </div>
-            </div>
-            <div class="fire-image">
-               <iframe  src="{{getUrl(fire.lat, fire.long)}}"
-               width="300" height="250" frameborder="0" style="border:0"
-               allowfullscreen>
-            </iframe>
-            <img src="{{fire.image}}">
-         </div>
+         <!-- =================== -->
          <!-- EDIT/DELETE BUTTONS -->
+         <!-- =================== -->
          <div  class="buttons"
          ng-if="auth.loggedInUsername === fire.createdBy">
          <button type="button" ng-click="ctrl.deleteFire(fire)">
@@ -105,7 +112,9 @@
          ng-click="fire.indexOfFire = $index"
          >Edit Log
       </button>
+      <!-- ==================== -->
       <!-- EDIT FIELD/EDIT FORM -->
+      <!-- ==================== -->
       <div class="edit-form">
          <form ng-if="$index === fire.indexOfFire"
          ng-submit="ctrl.editFire(fire)">

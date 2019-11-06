@@ -46,8 +46,8 @@ app.get("/config", (req, res) => {
 // AUTH ROUTE
 app.get('/app', (req, res)=>{
     if(req.session.currentUser){
-      console.log(req.session.currentUser);
-        res.json(req.session.currentUser)
+      // console.log(req.session.currentUser);
+       res.json(req.session.currentUser)
     } else {
         res.status(401).json({
            status: 401,

@@ -17,7 +17,6 @@ body {
              0px 8px 13px rgba(214, 205, 194,0.1),
              0px 18px 23px rgba(214, 205, 194,0.1);
   color: #b49c9c;
-
   font-size: 50px;
 }
 iframe {
@@ -41,8 +40,6 @@ input[type="submit"] {
    background: #bbb6b6;
    -webkit-appearance: none;
 }
-
-
 .textarea {
    width: 90%;
    height: 200px;
@@ -54,42 +51,43 @@ input[type="submit"] {
 h3 {
    text-transform: uppercase;
    font-size: 2vw;
+   /* margin: 0; */
 }
-
 p {
    font-size: 1.5vw;
    margin: 0;
 }
-
 #searchbox {
    color: #FC7A2B;
 }
-
 #searchbox::-webkit-input-placeholder { /* Chrome/Opera/Safari */
  color: #FC7A2B;
-}
-
-
-.fire-name {
-  height: 95px;
-}
-.fire-image {
-  height: 465px;
-  overflow: hidden;
-  margin-bottom: 10px;
 }
 .fire-logs {
    display: flex;
    justify-content: space-around;
    flex-wrap: wrap;
-
+   overflow-y: auto;
 }
 .fire-log {
-   /* margin: 0 auto; */
-   margin-bottom: 100px;
+   display: flex;
+   /* flex-direction: column; */
+   justify-content: center;
+   /* align-items: baseline; */
+   margin-bottom: 25px;
    width: 30%;
    overflow: hidden;
-   /* height: 600px; */
+}
+.container {
+   margin: 0;
+}
+.fire-name {
+   /* height: 5em; */
+   margin: 0;
+}
+.fire-image {
+  overflow: hidden;
+  margin-bottom: 10px;
 }
 .buttons {
    margin-top: 10px;

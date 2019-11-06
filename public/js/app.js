@@ -53,9 +53,11 @@ app.controller('AuthController', ['$http', '$scope', function($http, $scope) {
       }).then(
          function(response) {
             controller.loggedInUsername = response.data.username;
+            controller.loggedInUserId = response.data._id;
             $scope.loggedInUsername = response.data.username;
             console.log($scope.loggedInUsername);
             console.log(controller.loggedInUsername);
+            console.log(controller.loggedInUserId);
          }, function(error) {
             console.log(error);
          }
@@ -81,10 +83,17 @@ app.controller('AuthController', ['$http', '$scope', function($http, $scope) {
 //USER FORM SUBMISSION
 app.controller('FiresController', ['$http', "$scope", "$sce", function($http, $scope, $sce) {
 
-  $scope.trustAsUrl = (url) => {
-    return $sce.trustAsResourceUrl(url)
-  }
+   // this.myPosts = false;
+   this.searchbox = 'searchbox';
 
+   this.myPosts = function() {
+      this.searchbox = "search.createdBy." + $scope.loggedInUsername
+      // console.log($scope.loggedInUsername);
+   };
+
+   $scope.trustAsUrl = (url) => {
+    return $sce.trustAsResourceUrl(url)
+   }
 
    this.key;
    this.fires = [];
